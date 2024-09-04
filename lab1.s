@@ -26,7 +26,7 @@ F:	.word 3
 K:	.word 4
 T:	.word 5
 W:	.word 6
-X:.skip 4
-C:.skip 4
-J:.skip 4
-  .end
+X:	.skip 4
+C:	.skip 4
+J:	.skip 4
+  	.end

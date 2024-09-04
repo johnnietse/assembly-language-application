@@ -6,7 +6,7 @@ _start:
 	ldw	r2, W(r0)
 	ldw	r3, A(r0)
 	sub	r2, r2, r3
-	stw r2, X(r0)
+	stw     r2, X(r0)
 	
 	ldw r6, X(r0)
 	addi r2, r6, 1

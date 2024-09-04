@@ -134,10 +134,10 @@ PrintHexByte:
 	mov  r3, r2                 # move the hex byte to r3
 	
 	srli r2, r2, 4              # shift right to isolate upper nibble
-    call PrintHexDigit          # print the upper nibble
+    	call PrintHexDigit          # print the upper nibble
 	
 	andi r2, r3, 0x0F           # mask to keep only the lower 4 bits of the byte
-    call PrintHexDigit          # print the lower nibble
+    	call PrintHexDigit          # print the lower nibble
 	
 	ldw  r2, 8(sp)
 	ldw  r3, 4(sp)

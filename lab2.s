@@ -9,7 +9,7 @@ _start:
     movi  r4, 3
     movi  r5, 15
     call  ListComputation
-	stw   r2, Count(r0)
+    stw   r2, Count(r0)
 
 _end:
     break
@@ -25,7 +25,7 @@ ListComputation:
 loop:
 if:
     ldw  r7, 0(r2)
-	ldw  r8, 0(r3)
+    ldw  r8, 0(r3)
     muli r8, r8, 3
     bgt  r7, r8, else
 then:
@@ -36,7 +36,7 @@ else:
     stw  r5, 0(r3)
 end_if:
     addi  r2, r2, 4
-	addi  r3, r3, 4
+    addi  r3, r3, 4
     subi  r4, r4, 1
     bgt   r4, r0, loop
     mov   r2, r6
@@ -47,10 +47,11 @@ end_if:
     addi  sp, sp, 16
     ret
 	
-	.org 0x1000
+    .org 0x1000
     
 LIST1: .word 8, 9, 10
 LIST2: .word 3, 2, 1
 Count: .skip 4
 
-    .end
+   .end
+ 

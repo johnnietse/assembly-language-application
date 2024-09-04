@@ -63,31 +63,31 @@ _end:
 # ------------------------------------------------------------------------------------------------ PrintChar
 	
 PrintChar:
-	subi  sp, sp, 8             # adjust stack pointer down to reserve space
-	stw   r3, 4(sp)             # save value of register 13 so it can be a temp
-	stw   r4, 0(sp)             # save value of register 14 so it can be a temp
-	movia r3, JTAG_UART_BASE    # point to first memory-mapped I/0 register
+    subi  sp, sp, 8             # adjust stack pointer down to reserve space
+    stw   r3, 4(sp)             # save value of register 13 so it can be a temp
+    stw   r4, 0(sp)             # save value of register 14 so it can be a temp
+    movia r3, JTAG_UART_BASE    # point to first memory-mapped I/0 register
 
 pc_loop:
-	ldwio r4, STATUS_OFFSET(r3) # read bits from status register
-	andhi r4, r4, WSPACE_MASK   # mask off lower bits to isolate upper bits
-	beq   r4, r0, pc_loop       # if upper bits are zero, loop again
-	stwio r2, DATA_OFFSET(r3)   # otherwise, write character to data register
-	ldw   r3, 4(sp)             # restore value of r3 from stack
-	ldw   r4, 0(sp)             # restore value of r4 from stack
-	addi  sp, sp, 8             # readjust stack pointer up to deallocate space
-	ret                         # return to calling routine
+    ldwio r4, STATUS_OFFSET(r3) # read bits from status register
+    andhi r4, r4, WSPACE_MASK   # mask off lower bits to isolate upper bits
+    beq   r4, r0, pc_loop       # if upper bits are zero, loop again
+    stwio r2, DATA_OFFSET(r3)   # otherwise, write character to data register
+    ldw   r3, 4(sp)             # restore value of r3 from stack
+    ldw   r4, 0(sp)             # restore value of r4 from stack
+    addi  sp, sp, 8             # readjust stack pointer up to deallocate space
+    ret                         # return to calling routine
 
 # ----------  
 
 GetChar:
-	subi    sp, sp, 8
+    subi    sp, sp, 8
     stw     r3, 4(sp)
     stw     r4, 0(sp)
 	
     movia   r3, JTAG_UART_BASE
 gc_loop: 
-	ldwio	r4, 0(r3)
+    ldwio	r4, 0(r3)
     andi 	r2, r4, 0x8000
     beq 	r2, r0, gc_loop
 
@@ -96,7 +96,7 @@ gc_loop:
     ldw     r3, 4(sp)
     ldw     r4, 0(sp)
     addi    sp, sp, 8
-	ret
+    ret
 
 # ----------
 
@@ -122,36 +122,36 @@ PrintHexByte:
 # -------------------------------------------------------------------------------------------- PrintHexDigit
 
 PrintHexDigit:
-	subi sp, sp, 12             # adjust stack pointer down to reserve space
-	stw  r2, 8(sp)              # save value for the hex digit
-	stw  r3, 4(sp)              # save value for the other local variables
-	stw  ra, 0(sp)              # nested call
-	mov  r3, r2                 # move the hex digit to r3
+    subi sp, sp, 12             # adjust stack pointer down to reserve space
+    stw  r2, 8(sp)              # save value for the hex digit
+    stw  r3, 4(sp)              # save value for the other local variables
+    stw  ra, 0(sp)              # nested call
+    mov  r3, r2                 # move the hex digit to r3
 	
 phd_if:
-	movi r2, 9                  # assign 9 to r2
-	ble  r3, r2, phd_else       # compare if the hex digit is larger than 9
+    movi r2, 9                  # assign 9 to r2
+    ble  r3, r2, phd_else       # compare if the hex digit is larger than 9
 	
 phd_then:
-	subi r2, r3, 10             # if so, subtract 10 to get the offset
-	addi r2, r2, 'A'            # offset character A 
-	br   phd_endif              # ready to ptint the character
+    subi r2, r3, 10             # if so, subtract 10 to get the offset
+    addi r2, r2, 'A'            # offset character A 
+    br   phd_endif              # ready to ptint the character
 	
 phd_else:
-	addi r2, r3, '\0'           # convert a number to a character
+    addi r2, r3, '\0'           # convert a number to a character
 	
 phd_endif:
-	call PrintChar              # print the character
+    call PrintChar              # print the character
 	
-	ldw  r2, 8(sp)
-	ldw  r3, 4(sp)
-	ldw  ra, 0(sp)
-	addi sp, sp, 12
-	ret		
+    ldw  r2, 8(sp)
+    ldw  r3, 4(sp)
+    ldw  ra, 0(sp)
+    addi sp, sp, 12
+    ret		
 	
 	
-		.org 0x1000
-		.data
+	.org 0x1000
+	.data
 N:      .word 4
 LIST:   .byte 0x88, 0xA3, 0xF2, 0x1C
 TEXT:   .asciz "Lab 4\n"

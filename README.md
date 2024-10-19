@@ -63,3 +63,52 @@ This lab focuses on performing UART I/O operations and manipulating lists of byt
 ### Execution
 The program interacts with the JTAG UART to print data and manipulate the list of bytes, showcasing bitwise operations and UART output.
 
+
+## Lab 4: UART I/O, Conditional Logic, and Byte Manipulation
+### Description
+This lab involves handling UART I/O, conditional logic based on user input, and manipulating byte values in memory. The program demonstrates how to print a header, manipulate a list of bytes, accept user input, and modify the list conditionally.
+
+### Operations
+- Print a header ("Lab 4") using the JTAG UART.
+- Display a list of bytes in hexadecimal format along with special characters.
+- Accept user input from the JTAG UART, compare the input with the character 'Z', and modify the list accordingly.
+- Print both the byte from the list and the corresponding user input.
+
+### Key Subroutines
+- PrintString: Prints a null-terminated string using the JTAG UART.
+- PrintHexByte: Prints a byte in hexadecimal format.
+- PrintChar: Sends a single character to the JTAG UART.
+- GetChar: Reads a single character from the JTAG UART.
+- PrintHexDigit: Converts a single nibble (4 bits) into a hexadecimal character and prints it.
+
+### Memory Map
+- LIST: Contains the initial byte list {0x88, 0xA3, 0xF2, 0x1C}.
+- TEXT: Displays the string "Lab 4\n".
+- N: Holds the size of the list (4 bytes).
+
+
+### Execution Flow
+
+1. Header Printing:
+The program starts by printing the string "Lab 4\n" to the JTAG UART using a loop that reads characters from memory until it encounters a null terminator.
+
+2. Byte List Display:
+Each byte in the list is printed in hexadecimal format using the PrintHexByte subroutine. A question mark (?) and a space are printed after each byte for clarity.
+
+3. User Input Handling:
+For each byte in the list, the program waits for the user to input a character via the JTAG UART. It echoes the input and checks if it is the letter 'Z'. If 'Z' is entered, the corresponding byte in the list is set to 0x00.
+
+4. Loop Termination:
+The program continues until all bytes in the list have been processed. If the input character is 'Z', the corresponding byte is modified; otherwise, the list remains unchanged.
+
+### Subroutine Descriptions
+
+- PrintChar: Sends a single character from a register to the JTAG UART data register, waiting for the UART to be ready.
+- GetChar: Reads a character from the JTAG UART data register, waiting until data is available.
+- PrintHexByte: Breaks a byte into two nibbles (4-bit halves), converts each to hexadecimal using PrintHexDigit, and prints both.
+- PrintHexDigit: Converts a 4-bit nibble to a hexadecimal character and sends it to the UART.
+
+
+
+
+

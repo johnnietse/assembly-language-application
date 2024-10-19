@@ -40,8 +40,8 @@ The main function calls ListComputation, which performs the list comparison and 
 
 
 
-# Lab 3: UART I/O and Bitwise Operations
-## Description
+## Lab 3: UART I/O and Bitwise Operations
+### Description
 This lab focuses on performing UART I/O operations and manipulating lists of bytes through bitwise operations. The program demonstrates how to print data using the JTAG UART interface and manipulate the values in memory.
 
 ### Operations
